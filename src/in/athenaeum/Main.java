@@ -5,13 +5,34 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        //  https://en.wikipedia.org/wiki/Generics_in_Java#Problems_with_type_erasure
+        //  Type erasure works only with reference types
+        //  This rules out the primitives as type arguments
 
-        //  For every generic type, compiler produces a raw type
-        List rawVehicleList = new ArrayList();  // IDE may warn
+        //  We have autoboxing and unboxing with wrapper classes to support this flaw
+        //  https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html
 
-        rawVehicleList.add((Vehicle) new Car());  // cast insertion at input position
+        //  Boxing is when a primitive is wrapped inside a reference type object
+        Integer i = new Integer(123);
 
-        Vehicle vehicle = (Vehicle) rawVehicleList.get(0);  //  cast insertion at output position
+        //  Boxing is enabled automatically for primitives and their wrappers
+        //  It has other optimizations as well
+        //  Hence autoboxing
+        Integer j = 123;    //  new Integer(123); is implicit
+
+        //  Unboxing is when a primitive is unboxed from the respective wrapper
+        int x = i.intValue();
+
+        //  Unboxing is enabled automatically for primitives and their wrappers
+        int y = j;  //j.intValue(); is implicit
+
+        //  Self-study:
+        //  boolean	->  Boolean
+        //  byte	->  Byte
+        //  char	->  Character
+        //  float	->  Float
+        //  int	    ->  Integer
+        //  long	->  Long
+        //  short	->  Short
+        //  double	->  Double
     }
 }
