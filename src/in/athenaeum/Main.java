@@ -5,34 +5,27 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        //  Type erasure works only with reference types
-        //  This rules out the primitives as type arguments
+        //  Wrapper classes are reference types
+        Character character = null;
 
-        //  We have autoboxing and unboxing with wrapper classes to support this flaw
-        //  https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html
+        Integer i = 100;
+        Object object = i;  // = 100; is similar
 
-        //  Boxing is when a primitive is wrapped inside a reference type object
-        Integer i = new Integer(123);
+        //  But primitives do not inherit from Object
+        //  int j = null;   // fails
 
-        //  Boxing is enabled automatically for primitives and their wrappers
-        //  It has other optimizations as well
-        //  Hence autoboxing
-        Integer j = 123;    //  new Integer(123); is implicit
+        //  A potential danger
+        //  int j = i;  //  detectable only in runtime
 
-        //  Unboxing is when a primitive is unboxed from the respective wrapper
-        int x = i.intValue();
 
-        //  Unboxing is enabled automatically for primitives and their wrappers
-        int y = j;  //j.intValue(); is implicit
 
-        //  Self-study:
-        //  boolean	->  Boolean
-        //  byte	->  Byte
-        //  char	->  Character
-        //  float	->  Float
-        //  int	    ->  Integer
-        //  long	->  Long
-        //  short	->  Short
-        //  double	->  Double
+        Integer j = 100;
+
+        //  Are i and j references to the same object?
+        //  It is not specified whether we get same object for same value
+        //  Hence, == and != are generally not recommended
+
+        //  recommended
+        System.out.println(i.equals(j));
     }
 }
