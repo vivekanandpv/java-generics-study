@@ -5,27 +5,40 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        //  Wrapper classes are reference types
-        Character character = null;
+        List<Integer> scores = List.of(123, 345, 456, 567, 566, 9999);
 
-        Integer i = 100;
-        Object object = i;  // = 100; is similar
+        //  early unboxing is a significant gain
+        Integer totalWrapper = totalAsWrapper(scores);
+        int totalPrimitive = totalAsPrimitive(scores);
+    }
 
-        //  But primitives do not inherit from Object
-        //  int j = null;   // fails
+    public static Integer totalAsWrapper(List<Integer> integerList) {
+        long start = System.nanoTime();
 
-        //  A potential danger
-        //  int j = i;  //  detectable only in runtime
+        Integer total = 0;
+        for (Integer i: integerList) {
+            total += i;
+        }
 
+        long end = System.nanoTime();
 
+        System.out.println("totalAsWrapper took: " + (end-start) + " nanoseconds");
 
-        Integer j = 100;
+        return total;
+    }
 
-        //  Are i and j references to the same object?
-        //  It is not specified whether we get same object for same value
-        //  Hence, == and != are generally not recommended
+    public static int totalAsPrimitive(List<Integer> integerList) {
+        long start = System.nanoTime();
 
-        //  recommended
-        System.out.println(i.equals(j));
+        int total = 0;
+        for (int i: integerList) {
+            total += i;
+        }
+
+        long end = System.nanoTime();
+
+        System.out.println("totalAsPrimitive took: " + (end-start) + " nanoseconds");
+
+        return total;
     }
 }
