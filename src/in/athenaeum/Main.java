@@ -9,27 +9,26 @@ public class Main {
         cars.add(new Car());
 
         //  Producer Extends, Consumer Super (PECS)
-        printVehicles(cars);    //  list is producer
+        addACar(cars);    //  list is consumer
     }
 
-    //  It's ok to read the subclass elements as superclass elements
-    //  list is used in outward positions (asked to produce)
-    //  ? is wildcard
-    //  ? extends Vehicle sets the upper-bound (Vehicle or any of its subclasses)
-    public static void printVehicles(List<? extends Vehicle> anyVehicleList) {
-        //  Vehicle can be read from List<Vehicle>, List<Truck>, List<Car>, List<SportsCar>
-        for(Vehicle v: anyVehicleList) {    //  outward position
-            System.out.println(v.getClass());
-        }
+    //  So long as it is a list of Car or any of its super classes,
+    //  there is no harm in adding a car (inward position)
+    //  list is asked to consume
+    //  ? super Car sets the lower-bound (Car or any of its superclasses)
+    //  Cannot be called with List<SportsCar> (lower-bound is breached)
+    public static void addACar(List<? super Car> anyCarList) {
+        //  Car can be added to List<Car>, List<Vehicle>, List<Object>
+        anyCarList.add(new Car());  //  inward position
 
-        //  cannot add (use list in inward position)
-        //  anyVehicleList.add(new Vehicle());  //  fails
+        //  cannot read
+        //  Car car = anyCarList.get(0);    //  fails
 
         //  Self-study:
-        //  Can we read the elements as any subclass of Vehicle?
-        //  Car car = anyVehicleList.get(0);    //  fails. Why?
-        //  If List<Truck> or List<Vehicle> is passed,
-        //  Can we read it as a Car?
-        //  Is Truck a Car? Or, is Vehicle a Car?
+        //  SportsCar can be added (SportsCar is a car)
+        //  But a Vehicle cannot be added. Why?
+        //  Because of the lower-bound, List<Car> can be passed
+        //  Can we push a Vehicle to List<Car>?
+        //  Is Vehicle a Car?
     }
 }
