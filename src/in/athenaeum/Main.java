@@ -5,28 +5,20 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        //  An array
-        Car[] cars = new Car[] {new Car(), new SportsCar(), new Car()};
+        Container<Vehicle> vehicleContainer = new Container<>();
 
-        workWithVehicleArray(cars);
-    }
+        List<Vehicle> vehicleList = List.of(new Vehicle(), new Truck(), new Car(), new SportsCar());
+        List<Truck> truckList = List.of(new Truck(), new Truck());
+        List<Car> carList = List.of(new Car(), new Car());
+        List<SportsCar> sportsCarList = List.of(new SportsCar(), new SportsCar());
 
-    //  Car is a Vehicle
-    //  Car[] is a Vehicle[]
-    //  But List<Car> is not a List<Vehicle>
-    public static void workWithVehicleArray(Vehicle[] vehicles) {
-        //  vehicles[0] = new Vehicle();    //   throws ArrayStoreException. Why?
+        vehicleContainer.addCollection(sportsCarList);
+        vehicleContainer.addCollection(carList);
+        vehicleContainer.addCollection(truckList);
+        vehicleContainer.addCollection(vehicleList);
 
-        for (Vehicle v: vehicles) {
+        for(Vehicle v: vehicleContainer) {
             System.out.println(v.getClass());
         }
-
-        //  Generic type constraint of contravariance is a guard against ArrayStoreException
-
-        //  Polymorphism for collection types is troublesome
-        //  Arrays leave it to you
-        //  Generic types guard us
     }
-
-
 }
