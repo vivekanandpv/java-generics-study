@@ -5,21 +5,31 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        //  We know a Car is a Vehicle (inheritance relationship)
-        Vehicle carAsVehicle = new Car();
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car());
 
-        //  Intuitively, we think a collection of Car is a collection of Vehicle
-        //  But this is not the case
+        //  Producer Extends, Consumer Super (PECS)
+        printVehicles(cars);    //  list is producer
+    }
 
-        //  List<Car> cars = new ArrayList<>();
-        //  List<Vehicle> vehicles = cars;    //  fails
-        //  vehicles.add(new Vehicle());    //  is Vehicle a Car?
+    //  It's ok to read the subclass elements as superclass elements
+    //  list is used in outward positions (asked to produce)
+    //  ? is wildcard
+    //  ? extends Vehicle sets the upper-bound (Vehicle or any of its subclasses)
+    public static void printVehicles(List<? extends Vehicle> anyVehicleList) {
+        //  Vehicle can be read from List<Vehicle>, List<Truck>, List<Car>, List<SportsCar>
+        for(Vehicle v: anyVehicleList) {    //  outward position
+            System.out.println(v.getClass());
+        }
 
-        //  Also,
-        //  List<Vehicle> vehicles = new ArrayList<>();
-        //  vehicles.add(new Truck());  //  ok
-        //  List<Car> cars = vehicles;  //  fails
-        //  cars.add(new SportsCar());  //  ok
-        //  Car c = cars.get(0);    //  is Truck a Car?
+        //  cannot add (use list in inward position)
+        //  anyVehicleList.add(new Vehicle());  //  fails
+
+        //  Self-study:
+        //  Can we read the elements as any subclass of Vehicle?
+        //  Car car = anyVehicleList.get(0);    //  fails. Why?
+        //  If List<Truck> or List<Vehicle> is passed,
+        //  Can we read it as a Car?
+        //  Is Truck a Car? Or, is Vehicle a Car?
     }
 }
