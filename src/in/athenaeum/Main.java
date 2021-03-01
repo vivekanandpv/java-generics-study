@@ -5,40 +5,21 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> scores = List.of(123, 345, 456, 567, 566, 9999);
+        //  We know a Car is a Vehicle (inheritance relationship)
+        Vehicle carAsVehicle = new Car();
 
-        //  early unboxing is a significant gain
-        Integer totalWrapper = totalAsWrapper(scores);
-        int totalPrimitive = totalAsPrimitive(scores);
-    }
+        //  Intuitively, we think a collection of Car is a collection of Vehicle
+        //  But this is not the case
 
-    public static Integer totalAsWrapper(List<Integer> integerList) {
-        long start = System.nanoTime();
+        //  List<Car> cars = new ArrayList<>();
+        //  List<Vehicle> vehicles = cars;    //  fails
+        //  vehicles.add(new Vehicle());    //  is Vehicle a Car?
 
-        Integer total = 0;
-        for (Integer i: integerList) {
-            total += i;
-        }
-
-        long end = System.nanoTime();
-
-        System.out.println("totalAsWrapper took: " + (end-start) + " nanoseconds");
-
-        return total;
-    }
-
-    public static int totalAsPrimitive(List<Integer> integerList) {
-        long start = System.nanoTime();
-
-        int total = 0;
-        for (int i: integerList) {
-            total += i;
-        }
-
-        long end = System.nanoTime();
-
-        System.out.println("totalAsPrimitive took: " + (end-start) + " nanoseconds");
-
-        return total;
+        //  Also,
+        //  List<Vehicle> vehicles = new ArrayList<>();
+        //  vehicles.add(new Truck());  //  ok
+        //  List<Car> cars = vehicles;  //  fails
+        //  cars.add(new SportsCar());  //  ok
+        //  Car c = cars.get(0);    //  is Truck a Car?
     }
 }
