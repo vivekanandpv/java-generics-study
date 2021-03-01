@@ -5,30 +5,28 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car());
+        //  An array
+        Car[] cars = new Car[] {new Car(), new SportsCar(), new Car()};
 
-        //  Producer Extends, Consumer Super (PECS)
-        addACar(cars);    //  list is consumer
+        workWithVehicleArray(cars);
     }
 
-    //  So long as it is a list of Car or any of its super classes,
-    //  there is no harm in adding a car (inward position)
-    //  list is asked to consume
-    //  ? super Car sets the lower-bound (Car or any of its superclasses)
-    //  Cannot be called with List<SportsCar> (lower-bound is breached)
-    public static void addACar(List<? super Car> anyCarList) {
-        //  Car can be added to List<Car>, List<Vehicle>, List<Object>
-        anyCarList.add(new Car());  //  inward position
+    //  Car is a Vehicle
+    //  Car[] is a Vehicle[]
+    //  But List<Car> is not a List<Vehicle>
+    public static void workWithVehicleArray(Vehicle[] vehicles) {
+        //  vehicles[0] = new Vehicle();    //   throws ArrayStoreException. Why?
 
-        //  cannot read
-        //  Car car = anyCarList.get(0);    //  fails
+        for (Vehicle v: vehicles) {
+            System.out.println(v.getClass());
+        }
 
-        //  Self-study:
-        //  SportsCar can be added (SportsCar is a car)
-        //  But a Vehicle cannot be added. Why?
-        //  Because of the lower-bound, List<Car> can be passed
-        //  Can we push a Vehicle to List<Car>?
-        //  Is Vehicle a Car?
+        //  Generic type constraint of contravariance is a guard against ArrayStoreException
+
+        //  Polymorphism for collection types is troublesome
+        //  Arrays leave it to you
+        //  Generic types guard us
     }
+
+
 }
