@@ -28,6 +28,9 @@ public class Main {
         //  Polymorphism for collection types is troublesome
         //  Arrays leave it to you
         //  Generic types guard us
+
+        //  Covariance in arrays was a design decision
+        //  It supports sort and other functionalities
     }
 
 
