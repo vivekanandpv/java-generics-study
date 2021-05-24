@@ -12,7 +12,7 @@ public class Main {
         //  https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html
 
         //  Boxing is when a primitive is wrapped inside a reference type object
-        Integer i = new Integer(123);
+        Integer i = Integer.valueOf(123);
 
         //  Boxing is enabled automatically for primitives and their wrappers
         //  It has other optimizations as well
